@@ -1,38 +1,295 @@
-.App {
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ 
+
+.input-section {
+  margin-bottom: 1rem;
+}
+
+.input-section input {
+  padding: 0.5rem;
+  width: 250px;
+  margin-right: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input-section button {
+  padding: 0.5rem 1rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.input-section button:hover {
+  background-color: #45a049;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.todo-list li {
+  background-color: #fff;
+  padding: 1rem;
+  margin: 0.8rem 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;  /* Align items to the center vertically */
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+ 
+
+.todo-list li.completed span {
+  text-decoration: line-through;
+  color: gray;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;  /* Align items to the center vertically */
+  width: 100%;
+}
+
+.tag {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 18px;
+  margin-left: 10px;
+  font-weight: bold;
+  width: 90px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+.low .tag {
+  background-color: #1c9509;
+  color: #ffffff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.medium .tag {
+  background-color: #dabc0f;
+  color: #ffffff;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.high .tag {
+  background-color: #aa0e0e;
+  color: #ffffff;
+}
+
+.meta {
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  color: #666;
+  margin-top: 8px;
+}
+
+.date {
+  font-style: italic;
+}
+
+/* Nút Thêm Mới */
+.add-todo-btn {
+  padding: 12px 24px;
+  background-color: #bb39eb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 20px 0;
+  margin-left: 340px; /* Thêm dòng này */
+}
+
+
+.add-todo-btn:hover {
+  background-color: #d76aff;
+  
+}
+
+/* Popup */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+
+.popup input,
+.popup select {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.popup {
+  display: flex;
+  flex-direction: column; /* Căn các nút theo chiều dọc */
+  gap: 10px; /* Khoảng cách đều giữa các nút */
+}
+
+.popup button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.popup button:hover {
+  background-color: #45a049;
+}
+
+
+/* Các phần tử khác */
+.todo-list {
   display: flex;
   flex-direction: column;
+  align-items: center; /* Căn giữa các item con (li) */
+  padding: 0;
+  margin: 0 auto;
+}
+
+.todo-list li {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.3s;
+  font-size: 23px;
+  width: 1200px;
+}
+ 
+
+.completed {
+  text-decoration: line-through;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 14px;
+  color: #666;
+  margin-top: 8px;
+}
+
+
+.date {
+  font-style: italic;
+  margin-left: 20px;
+  font-size: 18px;
+
+}
+
+li .meta {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li .delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ff4d4d;
+  font-size: 16px;
+  padding: 5px;
+  transition: color 0.3s ease;
+}
+
+li .delete-btn:hover {
+  color: #e60000;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.actions button {
+  background: rgb(233, 232, 232); /* Màu nền của nút */
+  
+  border-radius: 12px; /* Bo góc nút */
+  cursor: pointer;
+  font-size: 15px; /* Kích thước biểu tượng */
+  padding: 10px; /* Tăng kích thước nút */
+  transition: color 0.3s ease, transform 0.2s ease; /* Thêm hiệu ứng hover */
+}
+
+.actions button:hover {
+  background-color: #f1f1f1; /* Màu nền thay đổi khi hover */
+  transform: scale(1.05); /* Hiệu ứng phóng to khi hover */
+}
+
+
+.actions button svg {
+  font-size: 1.5em; /* Tăng kích thước của icon Font Awesome */
+}
+
+.popup input,
+.popup select {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.popup button {
+  padding: 8px 16px;
+  margin-top: 10px;
+  background-color: #4CAF50;
   color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.popup button:hover {
+  background-color: #45a049;
 }

@@ -1,0 +1,48 @@
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #fff;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between; /* Căn chỉnh nội dung */
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .header-controls {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-input {
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-right: 12px; /* Khoảng cách giữa ô tìm kiếm và dropdown */
+    width: 500px;
+    background: rgb(248, 245, 245);
+  }
+  
+  .priority-filter {
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: white;
+    margin-right: 50px;
+  }
+  
+  /* Nếu có dark mode */
+  body.dark .header {
+    background-color: #1e1e1e;
+    color: #fff;
+  }
+  
