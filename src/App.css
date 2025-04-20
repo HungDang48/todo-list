@@ -2,6 +2,8 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* background: linear-gradient(135deg, #fcfcfc, #84fb8a); */
+  background-color: rgb(241, 237, 237);
 }
  
 
