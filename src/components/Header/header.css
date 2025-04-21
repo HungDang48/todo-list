@@ -83,4 +83,51 @@
     background-color: #1e1e1e;
     color: #fff;
   }
+  /* Giữ nguyên cấu trúc và nội dung cũ, chỉ thêm media query cho mobile */
+@media (max-width: 768px) {
+  .header {
+    padding: 10px 20px; /* Thêm padding để tránh bị chặt chẽ trên điện thoại */
+    flex-direction: column; /* Để các phần tử trong header sắp xếp theo cột */
+    align-items: flex-start; /* Căn trái các phần tử */
+    gap: 10px; /* Thêm khoảng cách giữa các phần tử */
+  }
+
+  .header-title {
+    font-size: 20px; /* Giảm kích thước tiêu đề cho phù hợp với màn hình nhỏ */
+    margin: 0;
+    text-align: center; /* Căn giữa tiêu đề */
+  }
+
+  .header-controls {
+    width: 100%; /* Đảm bảo các control chiếm toàn bộ chiều ngang */
+    justify-content: space-between; /* Căn chỉnh các phần tử điều chỉnh theo không gian */
+    gap: 10px; /* Khoảng cách giữa các phần tử */
+  }
+
+  .search-input {
+    width: 100%; /* Đảm bảo ô tìm kiếm chiếm toàn bộ chiều rộng */
+    margin-right: 0; /* Xóa khoảng cách giữa ô tìm kiếm và dropdown */
+  }
+
+  .priority-filter-group,
+  .status-filter-group {
+    width: 100%; /* Đảm bảo các nhóm bộ lọc chiếm toàn bộ chiều ngang */
+    flex-direction: column; /* Chuyển các bộ lọc thành cột */
+    align-items: flex-start; /* Căn trái các bộ lọc */
+    gap: 5px; /* Thêm khoảng cách giữa các bộ lọc */
+  }
+
+  .priority-filter,
+  .status-filter {
+    width: 100%; /* Đảm bảo các nút lọc chiếm toàn bộ chiều ngang */
+    padding: 8px 12px; /* Điều chỉnh kích thước nút lọc cho phù hợp */
+    font-size: 14px; /* Giảm kích thước font để vừa với màn hình nhỏ */
+    margin-right: 0; /* Loại bỏ khoảng cách bên phải */
+  }
   
+  /* Chỉnh sửa cho dark mode */
+  body.dark .header {
+    background-color: #333; /* Màu nền tối cho header khi dark mode */
+    color: #fff;
+  }
+}

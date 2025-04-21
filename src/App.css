@@ -353,3 +353,67 @@ li .delete-btn:hover {
 .popup button:hover {
   background-color: #45a049;
 }
+/* Giữ nguyên cấu trúc và nội dung cũ, chỉ thêm media query cho mobile */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;  /* Điều chỉnh kích thước font để dễ đọc hơn trên điện thoại */
+  }
+
+  .input-section input {
+    width: 100%; /* Để input rộng hết chiều ngang */
+    margin-right: 0; /* Loại bỏ khoảng cách bên phải */
+  }
+
+  .input-section button {
+    width: 100%; /* Để nút bấm cũng rộng hết chiều ngang */
+  }
+
+  .todo-list {
+    padding: 0;
+    margin: 0 10px; /* Giảm khoảng cách hai bên để tận dụng tối đa không gian */
+  }
+
+  .todo-list li {
+    width: 100%; /* Đảm bảo các item trong todo-list chiếm hết chiều ngang */
+    font-size: 18px; /* Giảm kích thước font cho các mục todo */
+    padding: 12px; /* Điều chỉnh padding cho phù hợp với màn hình nhỏ */
+  }
+
+  .add-todo-btn {
+    width: 100%; /* Nút thêm todo chiếm hết chiều ngang */
+    margin: 10px 0; /* Điều chỉnh margin cho phù hợp */
+    margin-left: 0; /* Loại bỏ margin-left */
+  }
+
+  /* Chỉnh sửa popup cho mobile */
+  .popup {
+    width: 80%;  /* Popup sẽ rộng hơn trên màn hình nhỏ */
+    padding: 15px;  /* Giảm padding trong popup */
+  }
+
+  .popup input,
+  .popup select {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .popup button {
+    width: 100%; /* Đảm bảo nút trong popup chiếm hết chiều ngang */
+  }
+
+  .actions button {
+    width: 45%; /* Nút hành động có chiều rộng hợp lý hơn trên màn hình nhỏ */
+    font-size: 14px;  /* Giảm kích thước font */
+    padding: 8px;
+  }
+
+  .meta {
+    font-size: 12px;  /* Giảm kích thước font cho meta */
+  }
+
+  .todo-list li .meta {
+    flex-grow: 1;
+    font-size: 14px;  /* Giảm kích thước font của meta trong item */
+  }
+}
+
