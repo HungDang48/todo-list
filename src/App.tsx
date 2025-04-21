@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import Header from './components/Header/Header';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import Header from './components/Header/Header';
 
 type Priority = 'low' | 'medium' | 'high';
+type Status = 'not_started' | 'in_progress' | 'completed';
 
 type Todo = {
   id: number;
   text: string;
   completed: boolean;
   priority: Priority;
+  status: Status; 
   createdAt: Date;
 };
 
@@ -18,12 +21,13 @@ function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState<string>('');
   const [priority, setPriority] = useState<Priority>('medium');
+  const [status, setStatus] = useState<Status>('not_started');
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterPriority, setFilterPriority] = useState<Priority | "">(''); // Cập nhật kiểu cho filterPriority
-  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false); // State để mở/đóng popup
-  const [editingTodo, setEditingTodo] = useState<Todo | null>(null); // State để theo dõi task đang được chỉnh sửa
+  const [filterPriority, setFilterPriority] = useState<Priority | "">('');
+  const [filterStatus, setFilterStatus] = useState<Status | "">('');
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
+  const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
 
-  // Khi component mount, tải todos từ localStorage
   useEffect(() => {
     const storedTodos = localStorage.getItem('todos');
     if (storedTodos) {
@@ -31,7 +35,6 @@ function App() {
     }
   }, []);
 
-  // Cập nhật todos vào localStorage mỗi khi todos thay đổi
   useEffect(() => {
     if (todos.length > 0) {
       localStorage.setItem('todos', JSON.stringify(todos));
@@ -46,21 +49,31 @@ function App() {
       text: newTodo,
       completed: false,
       priority: priority,
+      status: status,
       createdAt: new Date(),
     };
 
     setTodos((prevTodos) => [...prevTodos, todo]);
     setNewTodo('');
-    setPriority('medium'); // reset về mặc định sau khi thêm
-    setIsPopupOpen(false); // Đóng popup khi thêm thành công
+    setPriority('medium');
+    setStatus('not_started');
+    setIsPopupOpen(false);
   };
 
   const toggleComplete = (id: number) => {
     const updatedTodos = todos.map(todo =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      todo.id === id
+        ? {
+            ...todo,
+            completed: !todo.completed,
+            status: todo.completed ? 'not_started' as Status : 'completed' as Status
+          }
+        : todo
     );
     setTodos(updatedTodos);
   };
+  
+  
 
   const deleteTodo = (id: number) => {
     const updatedTodos = todos.filter(todo => todo.id !== id);
@@ -68,15 +81,16 @@ function App() {
   };
 
   const openPopup = () => {
-    setEditingTodo(null); // Reset nếu không có task nào đang sửa
+    setEditingTodo(null);
     setIsPopupOpen(true);
   };
 
   const openEditPopup = (todo: Todo) => {
     setEditingTodo(todo);
-    setNewTodo(todo.text); // Set lại nội dung cũ vào input
-    setPriority(todo.priority); // Set lại độ ưu tiên cũ vào dropdown
-    setIsPopupOpen(true); // Mở popup sửa
+    setNewTodo(todo.text);
+    setPriority(todo.priority);
+    setStatus(todo.status);
+    setIsPopupOpen(true);
   };
 
   const closePopup = () => {
@@ -87,13 +101,14 @@ function App() {
     if (newTodo.trim() === '') return;
 
     const updatedTodos = todos.map(todo =>
-      todo.id === editingTodo?.id ? { ...todo, text: newTodo, priority: priority } : todo
+      todo.id === editingTodo?.id ? { ...todo, text: newTodo, priority: priority, status: status } : todo
     );
     setTodos(updatedTodos);
     setNewTodo('');
     setPriority('medium');
+    setStatus('not_started');
     setIsPopupOpen(false);
-    setEditingTodo(null); // Reset state editingTodo
+    setEditingTodo(null);
   };
 
   return (
@@ -103,17 +118,18 @@ function App() {
         setSearchTerm={setSearchTerm}
         filterPriority={filterPriority}
         setFilterPriority={setFilterPriority}
+        filterStatus={filterStatus} // Pass filterStatus to Header
+        setFilterStatus={setFilterStatus} // Pass setFilterStatus to Header
       />
 
       <button className="add-todo-btn" onClick={openPopup}>
         Add task
       </button>
 
-      {/* Popup */}
       {isPopupOpen && (
         <div className="popup-overlay">
           <div className="popup">
-            <h2>{editingTodo ? 'edit Task' : 'add new Task'}</h2>
+            <h2>{editingTodo ? 'Edit Task' : 'Add New Task'}</h2>
             <input
               type="text"
               value={newTodo}
@@ -124,12 +140,20 @@ function App() {
               value={priority}
               onChange={(e) => setPriority(e.target.value as Priority)}
             >
-              <option value="low">low</option>
-              <option value="medium">medium</option>
-              <option value="high">high</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value as Status)}
+            >
+              <option value="not_started">Not Started</option>
+              <option value="in_progress">In Progress</option>
+              <option value="completed">Completed</option>
             </select>
             <button onClick={editingTodo ? handleEditTodo : handleAddTodo}>
-              {editingTodo ? 'Save change' : 'Add new'}
+              {editingTodo ? 'Save Changes' : 'Add New'}
             </button>
             <button onClick={closePopup}>Close</button>
           </div>
@@ -138,18 +162,21 @@ function App() {
 
       <ul className="todo-list">
         {todos
-          .filter(todo => todo.text.toLowerCase().includes(searchTerm.toLowerCase()) &&
-            (filterPriority === '' || todo.priority === filterPriority))
+          .filter(todo => 
+            todo.text.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            (filterPriority === '' || todo.priority === filterPriority) &&
+            (filterStatus === '' || todo.status === filterStatus) // Apply filter by status
+          )
           .map(todo => (
-            <li key={todo.id} className={`todo-card ${todo.priority} ${todo.completed ? 'completed' : ''}`}>
+            <li key={todo.id} className={`todo-card ${todo.priority} ${todo.status} ${todo.completed ? 'completed' : ''}`}>
               <div>
                 <span onClick={() => toggleComplete(todo.id)}>{todo.text}</span>
                 <div className="meta">
                   <span className="tag">{todo.priority}</span>
+                  <span className="status">{todo.status}</span>
                   <span className="date">
                     {new Date(todo.createdAt).toLocaleDateString()} - {new Date(todo.createdAt).toLocaleTimeString()}
                   </span>
-
                 </div>
               </div>
               <div className="actions">

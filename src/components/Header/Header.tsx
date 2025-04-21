@@ -6,6 +6,8 @@ type HeaderProps = {
     setSearchTerm: (term: string) => void;
     filterPriority: "" | 'low' | 'medium' | 'high'; // Cập nhật kiểu ở đây
     setFilterPriority: (priority: "" | 'low' | 'medium' | 'high') => void; // Cập nhật kiểu ở đây
+    filterStatus: "" | 'not_started' | 'in_progress' | 'completed'; // Cập nhật kiểu cho filterStatus
+    setFilterStatus: (status: "" | 'not_started' | 'in_progress' | 'completed') => void; // Hàm set trạng thái
 };
 
 const Header: React.FC<HeaderProps> = ({
@@ -13,6 +15,8 @@ const Header: React.FC<HeaderProps> = ({
     setSearchTerm,
     filterPriority,
     setFilterPriority,
+    filterStatus,
+    setFilterStatus,
 }) => {
     return (
         <header className="header">
@@ -39,6 +43,23 @@ const Header: React.FC<HeaderProps> = ({
                     <option value="low">low</option>
                     <option value="medium">medium</option>
                     <option value="high">high</option>
+                </select>
+            </div>
+
+            {/* Add Status Filter Dropdown */}
+            <div className="status-filter-group">
+                <label htmlFor="status-filter" className="status-label">Status:</label>
+
+                <select
+                    id="status-filter"
+                    value={filterStatus}
+                    onChange={(e) => setFilterStatus(e.target.value as "" | 'not_started' | 'in_progress' | 'completed')}
+                    className="status-filter"
+                >
+                    <option value="">All Status</option>
+                    <option value="not_started">Not Started</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="completed">Completed</option>
                 </select>
             </div>
         </header>

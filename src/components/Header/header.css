@@ -5,7 +5,7 @@
     background-color: #fff;
     padding: 5px;
     display: flex;
-    justify-content: space-between; /* Căn chỉnh nội dung */
+    justify-content: space-evenly; /* Căn chỉnh nội dung */
     align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: rgb(241, 237, 237);
@@ -34,7 +34,7 @@
   .priority-filter-group {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
   }
   
   .priority-filter {
@@ -46,7 +46,38 @@
     margin-right: 50px;
     color: white;
   }
+
+  .status-filter-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
   
+  .status-filter {
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #8d54a2;
+    margin-right: 50px;
+    color: white;
+  }
+  .priority-filter,
+.status-filter {
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #8d54a2;
+    color: white;
+}
+.priority-filter {
+  margin-right: 0; /* Xóa margin-right */
+}
+
+.status-filter {
+  margin-right: 0; /* Xóa margin-right */
+}
   /* Nếu có dark mode */
   body.dark .header {
     background-color: #1e1e1e;
