@@ -61,18 +61,18 @@ function App() {
   };
 
   const toggleComplete = (id: number) => {
-    const updatedTodos = todos.map(todo =>
-      todo.id === id
-        ? {
-            ...todo,
-            completed: !todo.completed,
-            status: todo.completed ? 'not_started' as Status : 'completed' as Status
-          }
-        : todo
-    );
-    setTodos(updatedTodos);
-  };
-  
+  const updatedTodos = todos.map(todo =>
+    todo.id === id
+      ? {
+          ...todo,
+          completed: !todo.completed,
+          status: todo.completed ? 'not_started' as Status : 'completed' as Status
+        }
+      : todo
+  );
+  setTodos(updatedTodos);
+};
+
   
 
   const deleteTodo = (id: number) => {

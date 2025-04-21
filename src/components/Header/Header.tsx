@@ -1,5 +1,7 @@
 import React from 'react';
 import './header.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faListCheck } from '@fortawesome/free-solid-svg-icons';
 
 type HeaderProps = {
     searchTerm: string;
@@ -20,7 +22,8 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
     return (
         <header className="header">
-            <h2>📋 Todo List</h2>
+            <h1><FontAwesomeIcon icon={faListCheck} /> Todo List</h1>
+             
 
             <input
                 type="text"

@@ -46,7 +46,7 @@ body {
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;  /* Align items to the center vertically */
   cursor: pointer;
   transition: background 0.2s ease, transform 0.2s ease;
@@ -68,12 +68,11 @@ li {
 
 .tag {
   padding: 5px 10px;
-  border-radius: 4px;
+  border-radius: 15px;
   font-size: 18px;
   margin-left: 10px;
   font-weight: bold;
   width: 90px;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -103,6 +102,7 @@ li {
   width: 100%;
   color: #666;
   margin-top: 8px;
+  margin-left: 10px;
 }
 
 .date {
